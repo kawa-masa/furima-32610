@@ -7,14 +7,13 @@
 | Column   | Type   | Options     |
 | -------- | ------ | ----------- |
 | nickname               | string | null: false |
-| email                  | string | null: false |
-| password               | string | null: false |
-| password_confirmation  | string | null: false |
-| last-name              | string | null: false |
-| first-name             | string | null: false |
-| last-name-kana         | string | null: false |
-| first-name-kana        | string | null: false |
-| birth_data             | string | null: false |
+| email                  | string | null: false, unique: true|
+| encrypted_password     | string | null: false |
+| last_name              | string | null: false |
+| first_name             | string | null: false |
+| last_name_kana         | string | null: false |
+| first_name_kana        | string | null: false |
+| birth_data             | data   | null: false |
 
 - has_many :items
 - has_many :buys_history
@@ -23,16 +22,15 @@
 
 | Column | Type   | Options     |
 | ------ | ---------- | --------------------------------- |
-| item-name                | string | null: false |
-| item-info                | text | null: false   |
-| item-category            | text | null: false   |
-| item-sales-status        | text | null: false   |
-| item-shipping-fee-status | text | null: false   |
-| item-prefecture          | text | null: false   |
-| item-scheduled-delivery  | text | null: false   |
-| item-price               | text | null: false   |
-| user                     | references | null: false, foreign_key: true |
-| item-image |
+| name                   | string  | null: false |
+| info                   | text    | null: false   |
+| category_id            | integer | null: false   |
+| sales_status_id        | integer | null: false   |
+| shipping_fee-status_id | integer | null: false   |
+| prefecture_id          | integer | null: false   |
+| scheduled_delivery_id  | integer | null: false   |
+| price                  | integer | null: false   |
+| user                   | references | null: false, foreign_key: true |
 
 - belongs_to :user
 - has_one :buys_history
@@ -46,23 +44,19 @@
 
 
 - belongs_to :user
-- belongs_to :items
+- belongs_to :item
 - has_one :another_user
 
 ## another_users テーブル
 | Column   | Type   | Options     |
 | -------- | ------ | ----------- |
-| card-number    | integer | null: false |
-| card-exp-month | integer | null: false |
-| card-exp-year  | integer | null: false |
-| card-cvc       | integer | null: false |
-| postal-code    | integer | null: false |
-| prefecture     | text | null: false    |
-| city           | text | null: false    |
-| addresses      | text | null: false    |
-| building       | text | null: false    |
-| phone-number   | integer | null: false |
-| buys_history   | references | null: false, foreign_key: true |
+| postal_code       | string | null: false     |
+| prefecture_id     | integer | null: false    |
+| city              | string | null: false     |
+| address           | string | null: false     |
+| building          | string |
+| phone_number      | string | null: false     |
+| buys_history      | references | null: false, foreign_key: true |
 
 
 - belongs_to :buys_history
